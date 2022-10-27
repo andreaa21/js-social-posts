@@ -79,6 +79,8 @@ const posts = [
 
 const container = document.querySelector('#container');
 
+
+
 init();
 
 
@@ -96,6 +98,11 @@ function init(){
 function getPost(post){
     const {id, content, media, author, likes, created} = post;
     const {name, image} = author;
+    const postsDate = new Date(post.created);
+    const today = new Date();
+    let month = monthDiff(postsDate, today);    
+
+
     return `
     <div class="post">
     <div class="post__header">
@@ -105,7 +112,7 @@ function getPost(post){
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${author.name}</div>
-                <div class="post-meta__time">4 mesi fa</div>
+                <div class="post-meta__time">${month} mesi fa</div>
             </div>                    
         </div>
     </div>
@@ -131,10 +138,9 @@ function getPost(post){
     `
 }
 
-function reverseDate(str) {
-    let newDate = str.split("-").reverse().join("-");
-    return newDate;
+
+
+function monthDiff(dateFrom, dateTo) {
+    return dateTo.getMonth() - dateFrom.getMonth() + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
 }
-
-
 
